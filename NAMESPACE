@@ -1,0 +1,34 @@
+useDynLib(SFDesign, .registration = TRUE)
+importFrom(Rcpp, evalCpp)
+importFrom(GenSA, GenSA)
+importFrom(spacefillr, generate_sobol_set)
+importFrom(nloptr, nloptr)
+importFrom(stats, optim)
+importFrom(primes, Rscm)
+importFrom(proxy, dist)
+
+export(randomLHD)
+export(full.factorial)
+
+export(clustering.design)
+export(cluster.error)
+export(continuous.optim)
+
+export(maximin.crit)
+export(maximinLHD)
+export(maximin.optim)
+export(maximin.augment)
+export(maximin.remove)
+
+export(maxpro.crit)
+export(maxproLHD)
+export(maxpro.optim)
+export(maxpro.remove)
+
+export(uniform.crit)
+export(uniformLHD)
+export(uniform.optim)
+export(uniform.discrete)
+
+export(customLHD)
+
