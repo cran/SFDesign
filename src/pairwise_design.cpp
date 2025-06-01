@@ -26,7 +26,7 @@ protected:
 
   // Helper: compute index in distance vector for a pair (row, h).
   int computePosition(int row, int h, int n) {
-    return (int)row + 1 - pow((double)(h + 1), 2) * 0.5 + (n - 0.5) * (h + 1) - n - 1;
+    return (int) (row + 1 - pow((double)(h + 1), 2) * 0.5 + (n - 0.5) * (h + 1) - n - 1);
   }
 
 public:
@@ -54,7 +54,7 @@ public:
   virtual arma::vec updateDistanceMatrix(arma::mat &A, int col, int selrow1, int selrow2, arma::vec d) = 0;
 
   // Strategy 1: deterministic swapping.
-  virtual List optimizeDet() {
+  List optimizeDet() {
     d = computeDistanceMatrix(X);
     double critbest = computeCriterion(d);
     std::vector<double> xcrit_hist; // history of current criterion
@@ -93,7 +93,7 @@ public:
   }
 
   // Strategy 2: Simulated Annealing.
-  virtual List optimizeSA() {
+  List optimizeSA() {
     d = computeDistanceMatrix(X);
     arma::mat X_best = X;
     double critbest = computeCriterion(d);
@@ -165,7 +165,7 @@ public:
   }
 
   // Default optimize() method: selects strategy based on the optimizationMethod member.
-  virtual List optimize() {
+  List optimize() {
     if (optimizationMethod == "deterministic") {
       return optimizeDet();
     } else if (optimizationMethod == "sa") {
@@ -218,17 +218,17 @@ public:
               temp, decay, no_update_iter_max, method), power(power) {}
 
   // Compute pairwise Euclidean distances.
-  virtual arma::vec computeDistanceMatrix(const arma::mat &A) {
+  arma::vec computeDistanceMatrix(const arma::mat &A) {
     return computeDistanceMatrixMaximin(A);
   }
 
   // Compute the maximin criterion.
-  virtual double computeCriterion(const arma::vec &d) {
+  double computeCriterion(const arma::vec &d) {
     return computeCriterionMaximin(d, power);
   }
 
   // Update the distance vector after a swap for maximin.
-  virtual arma::vec updateDistanceMatrix(arma::mat &A, int col, int selrow1, int selrow2, arma::vec d) {
+  arma::vec updateDistanceMatrix(arma::mat &A, int col, int selrow1, int selrow2, arma::vec d) {
     int row1 = std::min(selrow1, selrow2);
     int row2 = std::max(selrow1, selrow2);
     int pos1, pos2;
@@ -309,17 +309,17 @@ public:
                           temp, decay, no_update_iter_max, method), s(s) {}
 
   // Compute the distance vector using a log-based measure.
-  virtual arma::vec computeDistanceMatrix(const arma::mat &A) {
+  arma::vec computeDistanceMatrix(const arma::mat &A) {
     return computeDistanceMatrixMaxPro(A, s);
   }
 
   // Compute the maxpro criterion.
-  virtual double computeCriterion(const arma::vec &d) {
+  double computeCriterion(const arma::vec &d) {
     return computeCriterionMaxPro(d, p, s);
   }
 
   // Update the distance vector after a swap for maxpro.
-  virtual arma::vec updateDistanceMatrix(arma::mat &A, int col, int selrow1, int selrow2, arma::vec d) {
+  arma::vec updateDistanceMatrix(arma::mat &A, int col, int selrow1, int selrow2, arma::vec d) {
     int row1 = std::min(selrow1, selrow2);
     int row2 = std::max(selrow1, selrow2);
     int pos1, pos2;
@@ -395,17 +395,17 @@ public:
                           temp, decay, no_update_iter_max, method){}
 
   // Compute pairwise wraparound discrepancy.
-  virtual arma::vec computeDistanceMatrix(const arma::mat &A) {
+  arma::vec computeDistanceMatrix(const arma::mat &A) {
     return computeDistanceMatrixUniform(A);
   }
 
   // Compute the wraparound criterion.
-  virtual double computeCriterion(const arma::vec &d) {
+  double computeCriterion(const arma::vec &d) {
     return computeCriterionUniform(d, n, p);
   }
 
   // Update the distance vector after a swap.
-  virtual arma::vec updateDistanceMatrix(arma::mat &A, int col, int selrow1, int selrow2, arma::vec d) {
+  arma::vec updateDistanceMatrix(arma::mat &A, int col, int selrow1, int selrow2, arma::vec d) {
     int n = A.n_rows;
 
     int row1 = std::min(selrow1, selrow2);
@@ -470,26 +470,30 @@ public:
       temp, decay, no_update_iter_max, method)
   {
     user_computeDistanceMatrix = [r_computeDistanceMatrix](const arma::mat &A) -> arma::vec {
-      Rcpp::NumericVector result = r_computeDistanceMatrix(Rcpp::wrap(A));
+      Rcpp::NumericMatrix A_rcpp = Rcpp::wrap(A);
+      Rcpp::NumericVector result = r_computeDistanceMatrix(A_rcpp);
       return Rcpp::as<arma::vec>(result);
     };
     user_computeCriterion = [r_computeCriterion](const arma::vec &d) -> double {
-      Rcpp::NumericVector result = r_computeCriterion(Rcpp::wrap(d));
+      Rcpp::NumericVector d_rcpp = Rcpp::wrap(d);
+      Rcpp::NumericVector result = r_computeCriterion(d_rcpp);
       return result[0];
     };
     user_updateDistanceMatrix = [r_updateDistanceMatrix](arma::mat &A, int col, int selrow1, int selrow2, arma::vec d) -> arma::vec {
-      Rcpp::NumericVector result = r_updateDistanceMatrix(Rcpp::wrap(A), col, selrow1, selrow2, Rcpp::wrap(d));
+      Rcpp::NumericMatrix A_rcpp = Rcpp::wrap(A);
+      Rcpp::NumericVector d_rcpp = Rcpp::wrap(d);
+      Rcpp::NumericVector result = r_updateDistanceMatrix(A_rcpp, col, selrow1, selrow2, d_rcpp);
       return Rcpp::as<arma::vec>(result);
     };
   }
   // Override virtual functions to call the user-supplied functions.
-  virtual arma::vec computeDistanceMatrix(const arma::mat &A) override {
+  arma::vec computeDistanceMatrix(const arma::mat &A) override {
     return user_computeDistanceMatrix(A);
   }
-  virtual double computeCriterion(const arma::vec &d) override {
+  double computeCriterion(const arma::vec &d) override {
     return user_computeCriterion(d);
   }
-  virtual arma::vec updateDistanceMatrix(arma::mat &A, int col, int selrow1, int selrow2, arma::vec d) override {
+  arma::vec updateDistanceMatrix(arma::mat &A, int col, int selrow1, int selrow2, arma::vec d) override {
     return user_updateDistanceMatrix(A, col, selrow1, selrow2, d);
   }
 };
@@ -560,11 +564,11 @@ List uniformLHDOptimizer_cpp(arma::mat design, int num_passes = 10, int max_iter
 // Custom
 // [[Rcpp::export]]
 List customLHDOptimizer_cpp(Rcpp::Function r_computeDistanceMatrix,
-                               Rcpp::Function r_computeCriterion,
-                               Rcpp::Function r_updateDistanceMatrix,
-                               arma::mat design, int num_passes = 10, int max_iter = 1e6,
-                               double temp = 0, double decay = 0.95, int no_update_iter_max = 400,
-                               std::string method = "deterministic") {
+                             Rcpp::Function r_computeCriterion,
+                             Rcpp::Function r_updateDistanceMatrix,
+                             arma::mat design, int num_passes = 10, int max_iter = 1e6,
+                             double temp = 0, double decay = 0.95, int no_update_iter_max = 400,
+                             std::string method = "deterministic") {
   CustomLHDOptimizer optimizer(r_computeDistanceMatrix,
                                r_computeCriterion,
                                r_updateDistanceMatrix,

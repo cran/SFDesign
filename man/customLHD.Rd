@@ -101,7 +101,7 @@ update.distance.matrix <- function(A, col, selrow1, selrow2, d) {
   row2 <- max(selrow1, selrow2)
 
   compute_position <- function(row, h, n) {
-    n * (h-1) - h*(h-1)/2 + row-h
+    n*(h-1) - h*(h-1)/2 + row-h
   }
 
   # Update for rows less than row1
@@ -109,12 +109,10 @@ update.distance.matrix <- function(A, col, selrow1, selrow2, d) {
     for (h in 1:(row1-1)) {
       position1 <- compute_position(row1, h, n)
       position2 <- compute_position(row2, h, n)
-      for (c in col){
-        d[position1] <- d[position1] + s * log(abs(A[row1, c] - A[h, c])) -
-          s * log(abs(A[row2, c] - A[h, c]))
-        d[position2] <- d[position2] + s * log(abs(A[row2, c] - A[h, c])) -
-          s * log(abs(A[row1, c] - A[h, c]))
-      }
+      d[position1] <- d[position1] + s * log(abs(A[row1, col] - A[h, col])) -
+          s * log(abs(A[row2, col] - A[h, col]))
+      d[position2] <- d[position2] + s * log(abs(A[row2, col] - A[h, col])) -
+          s * log(abs(A[row1, col] - A[h, col]))
     }
   }
 
@@ -123,12 +121,10 @@ update.distance.matrix <- function(A, col, selrow1, selrow2, d) {
     for (h in (row1+1):(row2-1)) {
       position1 <- compute_position(h, row1, n)
       position2 <- compute_position(row2, h, n)
-      for (c in col){
-        d[position1] <- d[position1] + s * log(abs(A[row1, c] - A[h, c])) -
-          s * log(abs(A[row2, c] - A[h, c]))
-        d[position2] <- d[position2] + s * log(abs(A[row2, c] - A[h, c])) -
-          s * log(abs(A[row1, c] - A[h, c]))
-      }
+      d[position1] <- d[position1] + s * log(abs(A[row1, col] - A[h, col])) -
+          s * log(abs(A[row2, col] - A[h, col]))
+      d[position2] <- d[position2] + s * log(abs(A[row2, col] - A[h, col])) -
+          s * log(abs(A[row1, col] - A[h, col]))
     }
   }
 
@@ -137,18 +133,16 @@ update.distance.matrix <- function(A, col, selrow1, selrow2, d) {
     for (h in (row2+1):n) {
       position1 <- compute_position(h, row1, n)
       position2 <- compute_position(h, row2, n)
-      for (c in col){
-        d[position1] <- d[position1] + s * log(abs(A[row1, c] - A[h, c])) -
-          s * log(abs(A[row2, c] - A[h, c]))
-        d[position2] <- d[position2] + s * log(abs(A[row2, c] - A[h, c])) -
-          s * log(abs(A[row1, c] - A[h, c]))
-      }
+      d[position1] <- d[position1] + s * log(abs(A[row1, col] - A[h, col])) -
+          s * log(abs(A[row2, col] - A[h, col]))
+      d[position2] <- d[position2] + s * log(abs(A[row2, col] - A[h, col])) -
+          s * log(abs(A[row1, col] - A[h, col]))
     }
   }
   return (d)
 }
 
-n = 10
+n = 6
 p = 2
 # Find an appropriate initial temperature
 crit1 = 1 / (n-1)
