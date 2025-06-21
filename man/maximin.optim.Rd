@@ -2,7 +2,7 @@
 % Please edit documentation in R/maximin.R
 \name{maximin.optim}
 \alias{maximin.optim}
-\title{Optimize a design based on maximin or reciprocal distance criterion.}
+\title{Optimize a design based on maximin or reciprocal distance criterion}
 \usage{
 maximin.optim(D.ini, iteration = 10, sa = FALSE, find.best.ini = FALSE)
 }

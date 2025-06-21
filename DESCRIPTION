@@ -1,12 +1,12 @@
 Package: SFDesign
 Type: Package
 Title: Space-Filling Designs
-Version: 0.1.1
+Version: 0.1.2
 Date: 2025-06-01
 Authors@R: c(person("Shangkun", "Wang",, "shangkunwang01@gmail.com", role = c("aut", "cre")),
     person("Roshan", "Joseph",,"roshan@gatech.edu", role = c("aut")))
 Maintainer: Shangkun Wang <shangkunwang01@gmail.com>
-Description: Construct various types of space-filling designs, including Latin hypercube designs, clustering-based designs, maximin designs, maximum projection designs, and uniform designs (Joseph 2016 <doi:10.1080/08982112.2015.1100447>). It also offers the option to optimize designs based on user-defined criteria.
+Description: Construct various types of space-filling designs, including Latin hypercube designs, clustering-based designs, maximin designs, maximum projection designs, and uniform designs (Joseph 2016 <doi:10.1080/08982112.2015.1100447>). It also offers the option to optimize designs based on user-defined criteria. This work is supported by U.S. National Science Foundation grant DMS-2310637.
 Depends: Rcpp (>= 1.0.8)
 Imports: GenSA, nloptr, primes, proxy, spacefillr
 LinkingTo: Rcpp, RcppArmadillo
@@ -15,7 +15,7 @@ Encoding: UTF-8
 Repository: CRAN
 NeedsCompilation: yes
 RoxygenNote: 7.3.2
-Packaged: 2025-06-01 03:14:43 UTC; s.k.wang
+Packaged: 2025-06-21 19:22:48 UTC; s.k.wang
 Author: Shangkun Wang [aut, cre],
   Roshan Joseph [aut]
-Date/Publication: 2025-06-01 04:40:05 UTC
+Date/Publication: 2025-06-21 20:00:02 UTC

@@ -2,7 +2,7 @@
 % Please edit documentation in R/custom.R
 \name{customLHD}
 \alias{customLHD}
-\title{Generate a Latin-hypercube design (LHD) based on a custom criterion.}
+\title{Generate a Latin-hypercube design (LHD) based on a custom criterion}
 \usage{
 customLHD(
   compute.distance.matrix,

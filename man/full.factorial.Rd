@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{full.factorial}
 \alias{full.factorial}
-\title{Full factorial design.}
+\title{Full factorial design}
 \usage{
 full.factorial(p, level)
 }

@@ -2,7 +2,7 @@
 \alias{SFDesign-package}
 \docType{package}
 \title{
-  Space-Filling designs.
+  Space-Filling designs
 }
 \description{
 This pacakge offers a comprehensive suite of functions to construct various types of space-filling designs, including Latin hypercube designs, clustering-based designs, maximin designs, maximum projection designs, and uniform designs (Joseph 2016). It also offers the option to optimize designs based on user-defined criteria.

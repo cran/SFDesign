@@ -2,7 +2,7 @@
 #' customLHD
 #'
 #' @title
-#' Generate a Latin-hypercube design (LHD) based on a custom criterion.
+#' Generate a Latin-hypercube design (LHD) based on a custom criterion
 #'
 #' @description
 #' This function generates a LHD by minimizing a user-specified design criterion.

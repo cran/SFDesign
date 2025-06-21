@@ -140,7 +140,7 @@ maxpro.remove = function(D, n.remove, delta=0){
   n = nrow(D)
   p = ncol(D)
 
-  d = 1 / (exp(distmatrix.maxpro(D)) ^ 2 + delta)
+  d = 1 / (exp(distmatrix.maxpro(D)) + delta)
   dist.matrix = matrix(0, n, n)
   dist.matrix[lower.tri(dist.matrix)] = d
   dist.matrix = dist.matrix + t(dist.matrix)

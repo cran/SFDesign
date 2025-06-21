@@ -37,7 +37,7 @@ randomLHD = function(n, p) {
 #' full.factorial
 #'
 #' @title
-#' Full factorial design.
+#' Full factorial design
 #'
 #' @description
 #' This function generates a full factorial design.

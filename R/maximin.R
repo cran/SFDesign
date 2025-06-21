@@ -261,7 +261,7 @@ maximin.ini = function(n, p, factorial=TRUE){
 #' maximin.optim
 #'
 #' @title
-#' Optimize a design based on maximin or reciprocal distance criterion.
+#' Optimize a design based on maximin or reciprocal distance criterion
 #'
 #' @description
 #' This function optimizes a design by continuous optimization based on reciprocal distance criterion. A simulated annealing step can be enabled in the end to directly optimize the maximin distance criterion.
