@@ -1,13 +1,13 @@
-6c0e9594ddf2d57dbd80504f3d409945 *DESCRIPTION
+a0486e5254b094ef0240f4355e1795be *DESCRIPTION
 0435dad4da568966ca32c925c419a2cc *NAMESPACE
-57afd72c9ff482261cfb3a982be6ccbd *R/RcppExports.R
+812175181830ca7d1422475394b65333 *R/RcppExports.R
 0c29e03101adcbab795b613283537b10 *R/clustering_design.R
 65b1255915f7be8e58e5dcc821c2e560 *R/continuousOptim.R
 ec478b25e0d5dbb05283b9eb234ba66e *R/custom.R
 807cbda0e09dd6803a807351009e82e9 *R/maximin.R
-5a409aa6b5f61c6649abb6a704ff7fad *R/maxpro.R
+a4318cd7b170a4a15570430533c54995 *R/maxpro.R
 56fb665bc2b511a588022f548c015291 *R/uniform.R
-17487c3aa933da8277617a811d8c5d06 *R/utils.R
+c0c49d74dbd317c4ea051cd78ddb0324 *R/utils.R
 75fb374bbb426be74acc9487b79309e1 *man/SFDesign-package.Rd
 cde123928d8ad8ae37e61f34bb5415cf *man/cluster.error.Rd
 0819f15c4b287c38700423e0f9218efb *man/clustering.design.Rd
@@ -19,7 +19,7 @@ f45c35b3bd6a3259f1c1e047acfa0f21 *man/maximin.crit.Rd
 d29846fb109ca6d49cc0da5c4efb128b *man/maximin.optim.Rd
 5d38a3a7d19676c2441754e7590fe78c *man/maximin.remove.Rd
 ff74d4cd404bd1050ab10b2ea23b5af7 *man/maximinLHD.Rd
-c780637a2aedecc806cfbd738c0bc517 *man/maxpro.crit.Rd
+f1d529451639e6963fb4a7402272cfe2 *man/maxpro.crit.Rd
 022cf2660a16f5234ab025c08526fa33 *man/maxpro.optim.Rd
 8e0b2553d7731ccf8e4dc594e6dc01f0 *man/maxpro.remove.Rd
 10dc29d344b0da722343ed41b906ed05 *man/maxproLHD.Rd
@@ -29,6 +29,6 @@ a7315b436df7110f688189ca4b979c05 *man/uniform.discrete.Rd
 36aefaeb557cd74813e6415c3e0fabee *man/uniform.optim.Rd
 8f82e7cc85a8066ab57e44820b8f9479 *man/uniformLHD.Rd
 1c2206373e282c662422b8fff8a58e74 *src/Makevars
-23441e0a54cc0aa69d7eae15cf33cd07 *src/RcppExports.cpp
+704e731fd5b946684e718d60f29014e0 *src/RcppExports.cpp
 3b9d46db5488fd00631cc2e80a6624bb *src/clustering_design.cpp
-f860fc5f2c46186d16fd9938e4b64387 *src/pairwise_design.cpp
+1cad3da033c94a8c245f43e65be5af3e *src/pairwise_design.cpp

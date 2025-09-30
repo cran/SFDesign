@@ -68,8 +68,8 @@ full.factorial = function(p, level) {
 }
 
 # compute distance matrix
-distmatrix.maxpro = function(D, s = 2){
-  return (computeDistanceMatrixMaxPro(D, s))
+distmatrix.maxpro = function(D, s = 2, delta=0){
+  return (computeDistanceMatrixMaxPro(D, s, delta))
 }
 distmatrix.maximin = function(D){
   return (computeDistanceMatrixMaximin(D))

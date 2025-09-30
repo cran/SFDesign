@@ -53,14 +53,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // computeDistanceMatrixMaxPro
-arma::vec computeDistanceMatrixMaxPro(const arma::mat& A, int s);
-RcppExport SEXP _SFDesign_computeDistanceMatrixMaxPro(SEXP ASEXP, SEXP sSEXP) {
+arma::vec computeDistanceMatrixMaxPro(const arma::mat& A, int s, double delta);
+RcppExport SEXP _SFDesign_computeDistanceMatrixMaxPro(SEXP ASEXP, SEXP sSEXP, SEXP deltaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
     Rcpp::traits::input_parameter< int >::type s(sSEXP);
-    rcpp_result_gen = Rcpp::wrap(computeDistanceMatrixMaxPro(A, s));
+    Rcpp::traits::input_parameter< double >::type delta(deltaSEXP);
+    rcpp_result_gen = Rcpp::wrap(computeDistanceMatrixMaxPro(A, s, delta));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -225,7 +226,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_SFDesign_clusterError", (DL_FUNC) &_SFDesign_clusterError, 3},
     {"_SFDesign_cluster_based_design_cpp", (DL_FUNC) &_SFDesign_cluster_based_design_cpp, 7},
     {"_SFDesign_computeDistanceMatrixMaximin", (DL_FUNC) &_SFDesign_computeDistanceMatrixMaximin, 1},
-    {"_SFDesign_computeDistanceMatrixMaxPro", (DL_FUNC) &_SFDesign_computeDistanceMatrixMaxPro, 2},
+    {"_SFDesign_computeDistanceMatrixMaxPro", (DL_FUNC) &_SFDesign_computeDistanceMatrixMaxPro, 3},
     {"_SFDesign_computeDistanceMatrixUniform", (DL_FUNC) &_SFDesign_computeDistanceMatrixUniform, 1},
     {"_SFDesign_maximinObj", (DL_FUNC) &_SFDesign_maximinObj, 2},
     {"_SFDesign_maximinCrit", (DL_FUNC) &_SFDesign_maximinCrit, 1},

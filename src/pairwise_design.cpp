@@ -267,7 +267,7 @@ public:
 // Implements the maxpro criterion using a log-based distance and a scaling parameter.
 //---------------------------------------------------------------------------
 // [[Rcpp::export]]
-arma::vec computeDistanceMatrixMaxPro(const arma::mat& A, int s = 2) {
+arma::vec computeDistanceMatrixMaxPro(const arma::mat& A, int s = 2, double delta = 0) {
   int p = A.n_cols;
   int n = A.n_rows;
   int dim = n * (n - 1) / 2;
@@ -276,7 +276,7 @@ arma::vec computeDistanceMatrixMaxPro(const arma::mat& A, int s = 2) {
   for (int row1=0; row1<(n - 1); row1++) {
     for (int row2=row1+1; row2<n; row2++) {
       for (int col=0; col<p; col++) {
-        d(count) += s * log(fabs(A(row1, col) - A(row2, col)));
+        d(count) += log(pow(A(row1, col) - A(row2, col), s) + delta);
       }
       count++;
     }
@@ -284,25 +284,23 @@ arma::vec computeDistanceMatrixMaxPro(const arma::mat& A, int s = 2) {
   return d;
 }
 
-double computeCriterionMaxPro(const arma::vec& d, int p, int s = 2, double delta = 0) {
+double computeCriterionMaxPro(const arma::vec& d, int p, int s = 2) {
   int dim = d.n_elem;
   double avg = 0;
-  if (delta == 0){
-    double Dmin = d.min();
-    avg = sum(exp(Dmin - d));
-    avg = log(avg) - Dmin;
-    avg = exp((avg - log(dim)) / (p * s));
-  }else{
-    avg = std::pow(arma::mean(arma::pow(exp(d) + delta, -1)), 1.0 / (p * s));
-  }
+  double Dmin = d.min();
+  avg = sum(exp(Dmin - d));
+  avg = log(avg) - Dmin;
+  avg = exp((avg - log(dim)) / (p * s));
+
   return avg;
 }
 
 class MaxProLHDOptimizer : public LHDPairDesignOptimizer {
 private:
-  double s; // Power parameter for the maxpro criterion.
+  double s; // Power parameter for the MaxPro criterion.
 public:
-  MaxProLHDOptimizer(const arma::mat &design, double s, int num_passes, int max_iter,
+  MaxProLHDOptimizer(const arma::mat &design, double s,
+                      int num_passes, int max_iter,
                       double temp = 0, double decay = 0.95, int no_update_iter_max = 400,
                       const std::string &method = "deterministic")
     : LHDPairDesignOptimizer(design, num_passes, max_iter,
@@ -525,19 +523,19 @@ List maximinLHDOptimizer_cpp(arma::mat design, int power = 15, int num_passes = 
 // [[Rcpp::export]]
 double maxproObj(const arma::mat& A, int s=2, double delta = 0){
   int p = A.n_cols;
-  return std::pow(computeCriterionMaxPro(computeDistanceMatrixMaxPro(A, s), p, s, delta), s);
+  return std::pow(computeCriterionMaxPro(computeDistanceMatrixMaxPro(A, s, delta), p, s), s);
 }
 // [[Rcpp::export]]
 double maxproCrit(const arma::mat& A, int s = 2, double delta = 0){
   return maxproObj(A, s, delta);
 }
 // [[Rcpp::export]]
-List maxproLHDOptimizer_cpp(arma::mat design, double s = 2, int num_passes = 10, int max_iter = 1e6,
-                         double temp = 0, double decay = 0.95, int no_update_iter_max = 400,
-                         std::string method = "deterministic") {
+List maxproLHDOptimizer_cpp(arma::mat design, double s = 2,
+                            int num_passes = 10, int max_iter = 1e6,
+                            double temp = 0, double decay = 0.95, int no_update_iter_max = 400,
+                            std::string method = "deterministic") {
   MaxProLHDOptimizer optimizer(design, s, num_passes, max_iter,
-                                temp, decay, no_update_iter_max,
-                                method);
+                               temp, decay, no_update_iter_max, method);
   return optimizer.optimize();
 };
 

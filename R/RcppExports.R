@@ -13,8 +13,8 @@ computeDistanceMatrixMaximin <- function(A) {
     .Call(`_SFDesign_computeDistanceMatrixMaximin`, A)
 }
 
-computeDistanceMatrixMaxPro <- function(A, s = 2L) {
-    .Call(`_SFDesign_computeDistanceMatrixMaxPro`, A, s)
+computeDistanceMatrixMaxPro <- function(A, s = 2L, delta = 0) {
+    .Call(`_SFDesign_computeDistanceMatrixMaxPro`, A, s, delta)
 }
 
 computeDistanceMatrixUniform <- function(A) {

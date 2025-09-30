@@ -8,7 +8,7 @@
 #' This function calculates the MaxPro criterion of a design.
 #'
 #' @details
-#' \code{maxpro.crit} calculates the MaxPro criterion of a design. The MaxPro criterion for a design \eqn{D=[\bm x_1, \dots, \bm x_n]^T} is defined as \deqn{\left\{\frac{1}{{n\choose 2}}\sum_{i=1}^{n-1}\sum_{j=i+1}^{n}\frac{1}{\prod_{l=1}^p(x_{il}-x_{jl})^2+ \delta}\right\}^{1/p},} where \eqn{p} is the dimension of the design (Joseph, V. R., Gul, E., & Ba, S. 2015).
+#' \code{maxpro.crit} calculates the MaxPro criterion of a design. The MaxPro criterion for a design \eqn{D=[\bm x_1, \dots, \bm x_n]^T} is defined as \deqn{\left\{\frac{1}{{n\choose 2}}\sum_{i=1}^{n-1}\sum_{j=i+1}^{n}\frac{1}{\prod_{l=1}^p[(x_{il}-x_{jl})^2+ \delta]}\right\}^{1/p},} where \eqn{p} is the dimension of the design (Joseph, V. R., Gul, E., & Ba, S. 2015).
 #'
 #' @param design the design matrix.
 #' @param delta a small value added to the denominator of the maximum projection criterion. By default it is set as zero.
@@ -140,7 +140,7 @@ maxpro.remove = function(D, n.remove, delta=0){
   n = nrow(D)
   p = ncol(D)
 
-  d = 1 / (exp(distmatrix.maxpro(D)) + delta)
+  d = 1 / exp(distmatrix.maxpro(D, delta=delta))
   dist.matrix = matrix(0, n, n)
   dist.matrix[lower.tri(dist.matrix)] = d
   dist.matrix = dist.matrix + t(dist.matrix)
