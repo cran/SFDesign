@@ -23,9 +23,18 @@ This function sequentially removes design points one-at-a-time from a design whi
 \code{maximin.remove} sequentially removes design points from a design in a greedy way while maintaining low reciprocal distance criterion (see \code{\link{maximin.crit}}) as possible. In each iteration, the design point with the largest sum of reciprocal distances with the other design points is removed, that is, \eqn{k^* = \arg\max_k \sum_{i\neq k}\frac{1}{\|\bm x_k - \bm x_i\|^r}}.
 }
 \examples{
+# Example 1
 n = 20
 p = 3
 n.remove =  5
 D = maximinLHD(n, p)$design
 D = maximin.remove(D, n.remove)
+
+# Example 2 : generate maximin design from candidates
+N = 500
+n = 20
+p = 2
+candidates = matrix(runif(N*p), ncol=p)
+D = maximin.remove(candidates, N-n)
+
 }

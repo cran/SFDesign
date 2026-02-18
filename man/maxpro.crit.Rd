@@ -25,7 +25,7 @@ n = 20
 p = 3
 D = randomLHD(n, p)
 maxpro.crit(D)
-
+maxpro.crit(D, 1e-4) # add a nugget term for stability
 }
 \references{
 Joseph, V. R., Gul, E., & Ba, S. (2015). Maximum projection designs for computer experiments. Biometrika, 102(2), 371-380.

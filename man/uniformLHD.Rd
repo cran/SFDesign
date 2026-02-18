@@ -56,6 +56,12 @@ This function generates a uniform LHD by minimizing the wrap-around discrepancy.
 \examples{
 n = 20
 p = 3
+# optimize by SA
+D = uniformLHD(n, p, method='sa')
+# optimize by deterministic swapping
+D = uniformLHD(n, p, method='deterministic')
+# generate an optimized LHD for wrap-around discrepancy which goes
+# through the above two optimization stages.
 D = uniformLHD(n, p)
 
 }

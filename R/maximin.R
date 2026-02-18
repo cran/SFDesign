@@ -106,10 +106,12 @@ maximinLHD = function (n, p, design=NULL, power = 2*p,
                                      temp, decay, no.update.iter.max,
                                      "sa")
     crit_hist = result$crit_hist
+    total_iter = result$total_iter
     result = maximinLHDOptimizer_cpp(result$design, power, num.passes, max.det.iter,
                                      temp, decay, no.update.iter.max,
                                      "deterministic")
     result$crit_hist = c(crit_hist, result$crit_hist)
+    result$total_iter = c(total_iter, result$total_iter)
   }
   result$design <- (apply(result$design, 2, rank) - 0.5)/n
 
@@ -141,11 +143,21 @@ maximinLHD = function (n, p, design=NULL, power = 2*p,
 #' the augmented design.
 #'
 #' @examples
+#' # Example 1
 #' n.ini = 10
 #' n = 20
 #' p = 3
 #' D.ini = maximinLHD(n.ini, p)$design
 #' D = maximin.augment(n, p, D.ini)
+#'
+#' # Example 2: augment from given candidates
+#' n.ini = 10
+#' n = 10
+#' p = 5
+#' D.ini = maximinLHD(n.ini, p)$design
+#' candidates = matrix(runif(1000), ncol=p)
+#' D = maximin.augment(n, p, D.ini, candidates)
+#'
 maximin.augment = function(n, p, D.ini, candidate = NULL, r = 2*p){
   # reciprocal
   if (n<=nrow(D.ini)){
@@ -189,11 +201,20 @@ maximin.augment = function(n, p, D.ini, candidate = NULL, r = 2*p){
 #' @return
 #' the updated design.
 #' @examples
+#' # Example 1
 #' n = 20
 #' p = 3
 #' n.remove =  5
 #' D = maximinLHD(n, p)$design
 #' D = maximin.remove(D, n.remove)
+#'
+#' # Example 2 : generate maximin design from candidates
+#' N = 500
+#' n = 20
+#' p = 2
+#' candidates = matrix(runif(N*p), ncol=p)
+#' D = maximin.remove(candidates, N-n)
+#'
 maximin.remove = function(D, n.remove, r = 2*p){
   if (n.remove<=0){
     return (D)
@@ -236,6 +257,7 @@ maximin.remove = function(D, n.remove, r = 2*p){
 #' n = 20
 #' p = 3
 #' D = maximin.ini(n, p)
+#'
 maximin.ini = function(n, p, factorial=TRUE){
   level.decimal = n^(1/p)
   level = floor(level.decimal)
@@ -287,6 +309,7 @@ maximin.ini = function(n, p, factorial=TRUE){
 #' D = maximinLHD(n, p)$design
 #' D = maximin.optim(D, sa=FALSE)$design
 #' # D = maximin.optim(D, sa=TRUE)$design # Let sa=TRUE only when the n and p is not large.
+#'
 maximin.optim = function(D.ini, iteration=10, sa=FALSE, find.best.ini=FALSE){
   n = nrow(D.ini)
   p = ncol(D.ini)

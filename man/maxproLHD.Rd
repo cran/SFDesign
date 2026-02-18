@@ -54,8 +54,15 @@ This function generates a MaxPro Latin-hypercube design.
 \code{maxproLHD} generates a MaxPro Latin-hypercube design (Joseph, V. R., Gul, E., & Ba, S. 2015). The major difference with the \code{MaxPro} packages is that we have a deterministic swap algorithm, which can be enabled by setting \code{method="deterministic"} or \code{method="full"}. For optimization details, see the detail section in \code{\link{customLHD}}.
 }
 \examples{
+# Example 1
 n = 20
 p = 3
+# optimize by SA
+D = maxproLHD(n, p, method='sa')
+# optimize by deterministic swapping
+D = maxproLHD(n, p, method='deterministic')
+# generate an optimized LHD for maxpro criterion which goes
+# through the above two optimization stages.
 D = maxproLHD(n, p)
 
 }

@@ -62,4 +62,5 @@ p = 5
 levels = c(3, 4, 6, 2, 3)
 t = 1
 D = uniform.discrete(t, p, levels)
+
 }

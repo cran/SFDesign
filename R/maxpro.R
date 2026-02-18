@@ -23,7 +23,7 @@
 #' p = 3
 #' D = randomLHD(n, p)
 #' maxpro.crit(D)
-#'
+#' maxpro.crit(D, 1e-4) # add a nugget term for stability
 maxpro.crit = function(design, delta = 0){
   return (maxproCrit(design, 2, delta))
 }
@@ -61,8 +61,15 @@ maxpro.crit = function(design, delta = 0){
 #' Joseph, V. R., Gul, E., & Ba, S. (2015). Maximum projection designs for computer experiments. Biometrika, 102(2), 371-380.
 #'
 #' @examples
+#' # Example 1
 #' n = 20
 #' p = 3
+#' # optimize by SA
+#' D = maxproLHD(n, p, method='sa')
+#' # optimize by deterministic swapping
+#' D = maxproLHD(n, p, method='deterministic')
+#' # generate an optimized LHD for maxpro criterion which goes
+#' # through the above two optimization stages.
 #' D = maxproLHD(n, p)
 #'
 maxproLHD = function(n, p, design=NULL,
@@ -95,10 +102,12 @@ maxproLHD = function(n, p, design=NULL,
                                     temp, decay, no.update.iter.max,
                                     "sa")
     crit_hist = result$crit_hist
+    total_iter = result$total_iter
     result = maxproLHDOptimizer_cpp(result$design, s, num.passes, max.det.iter,
                                     temp, decay, no.update.iter.max,
                                     "deterministic")
     result$crit_hist = c(crit_hist, result$crit_hist)
+    result$total_iter = c(total_iter, result$total_iter)
   }
   result$design <- (apply(result$design, 2, rank) - 0.5)/n
 
@@ -128,11 +137,20 @@ maxproLHD = function(n, p, design=NULL,
 #' the updated design.
 #'
 #' @examples
+#' # Example 1
 #' n = 20
 #' p = 3
 #' n.remove =  5
 #' D = maxproLHD(n, p)$design
 #' D = maxpro.remove(D, n.remove)
+#'
+#' # Example 2 : generate maxpro design from candidates
+#' N = 500
+#' n = 20
+#' p = 2
+#' candidates = matrix(runif(N*2), ncol=2)
+#' D = maxpro.remove(candidates, N-n)
+#'
 maxpro.remove = function(D, n.remove, delta=0){
   if (n.remove <= 0){
     return (D)

@@ -42,6 +42,8 @@ clustering.design(
 \item{design}{final design points.}
 \item{cluster}{cluster assignment for each cluster points.}
 \item{cluster.error}{final cluster error.}
+\item{total.iter}{total number of iterations used in the Lloyd algorithm.}
+\item{crit.hist}{history of clustering error values at each iteration.}
 }
 \description{
 This function is for producing designs by minimizing the clustering error.
@@ -50,10 +52,17 @@ This function is for producing designs by minimizing the clustering error.
 \code{clustering.design} produces a design by clustering algorithms. It minimize the clustering error (see \code{\link{cluster.error}}) by Lloyd's algorithm. When \eqn{\alpha > 2}, accelerated gradient descent is used to find the center for each cluster (Mak, S. and Joseph, V. R. 2018). When \eqn{\alpha \leq 2}: Weizfeld algorithm is used to find the center for each cluster. Let \eqn{\bm{x}^{(0)}_i=\bm{x}_i} denote the initial position of the \eqn{i}th center and and let \eqn{\bm{S}_i} represent the points within its Voronoi cell. The center is then updated as: \eqn{\bm{x}^{(k+1)}_i = \left.\left(\sum_{\bm{s}\in\bm{S}_i}\frac{\bm{s}}{\|\bm{s}-\bm{x}^{(k)}_i\|_2^{2-\alpha}}\right)\middle/ \left(\sum_{\bm{s}\in\bm{S}_i}\frac{1}{\|\bm{s}-\bm{x}^{(k)}_i\|_2^{2-\alpha}}\right)\right. \quad \text{for } k=0, 1, \dots.}
 }
 \examples{
-n = 20
+# Example 1
+n = 10
 p = 3
 X = spacefillr::generate_sobol_set(1e5*p, p)
 D = clustering.design(n, p, X)
+
+# Example 2: multi-start
+n = 10
+p = 3
+X = spacefillr::generate_sobol_set(1e5*p, p)
+D = clustering.design(n, p, X, multi.start=2)
 
 }
 \references{

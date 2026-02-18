@@ -9,16 +9,12 @@ cluster_based_design_cpp <- function(X, D_ini, alpha = 1.0, Lloyd_iter_max = 100
     .Call(`_SFDesign_cluster_based_design_cpp`, X, D_ini, alpha, Lloyd_iter_max, Lloyd_tol, cen_iter_max, cen_tol)
 }
 
+customLHDOptimizer_cpp <- function(r_computeDistanceMatrix, r_computeCriterion, r_updateDistanceMatrix, design, num_passes = 10L, max_iter = 1e6L, temp = 0, decay = 0.95, no_update_iter_max = 400L, method = "deterministic") {
+    .Call(`_SFDesign_customLHDOptimizer_cpp`, r_computeDistanceMatrix, r_computeCriterion, r_updateDistanceMatrix, design, num_passes, max_iter, temp, decay, no_update_iter_max, method)
+}
+
 computeDistanceMatrixMaximin <- function(A) {
     .Call(`_SFDesign_computeDistanceMatrixMaximin`, A)
-}
-
-computeDistanceMatrixMaxPro <- function(A, s = 2L, delta = 0) {
-    .Call(`_SFDesign_computeDistanceMatrixMaxPro`, A, s, delta)
-}
-
-computeDistanceMatrixUniform <- function(A) {
-    .Call(`_SFDesign_computeDistanceMatrixUniform`, A)
 }
 
 maximinObj <- function(A, power) {
@@ -29,8 +25,8 @@ maximinCrit <- function(A) {
     .Call(`_SFDesign_maximinCrit`, A)
 }
 
-maximinLHDOptimizer_cpp <- function(design, power = 15L, num_passes = 10L, max_iter = 1e6L, temp = 0, decay = 0.95, no_update_iter_max = 400L, method = "deterministic") {
-    .Call(`_SFDesign_maximinLHDOptimizer_cpp`, design, power, num_passes, max_iter, temp, decay, no_update_iter_max, method)
+computeDistanceMatrixMaxPro <- function(A, s = 2L, delta = 0) {
+    .Call(`_SFDesign_computeDistanceMatrixMaxPro`, A, s, delta)
 }
 
 maxproObj <- function(A, s = 2L, delta = 0) {
@@ -41,8 +37,8 @@ maxproCrit <- function(A, s = 2L, delta = 0) {
     .Call(`_SFDesign_maxproCrit`, A, s, delta)
 }
 
-maxproLHDOptimizer_cpp <- function(design, s = 2, num_passes = 10L, max_iter = 1e6L, temp = 0, decay = 0.95, no_update_iter_max = 400L, method = "deterministic") {
-    .Call(`_SFDesign_maxproLHDOptimizer_cpp`, design, s, num_passes, max_iter, temp, decay, no_update_iter_max, method)
+computeDistanceMatrixUniform <- function(A) {
+    .Call(`_SFDesign_computeDistanceMatrixUniform`, A)
 }
 
 uniformObj <- function(A) {
@@ -53,11 +49,15 @@ uniformCrit <- function(A, s = 2L) {
     .Call(`_SFDesign_uniformCrit`, A, s)
 }
 
-uniformLHDOptimizer_cpp <- function(design, num_passes = 10L, max_iter = 1e6L, temp = 0, decay = 0.95, no_update_iter_max = 400L, method = "deterministic") {
-    .Call(`_SFDesign_uniformLHDOptimizer_cpp`, design, num_passes, max_iter, temp, decay, no_update_iter_max, method)
+maximinLHDOptimizer_cpp <- function(design, power = 15L, num_passes = 10L, max_iter = 1e6L, temp = 0, decay = 0.95, no_update_iter_max = 400L, method = "deterministic") {
+    .Call(`_SFDesign_maximinLHDOptimizer_cpp`, design, power, num_passes, max_iter, temp, decay, no_update_iter_max, method)
 }
 
-customLHDOptimizer_cpp <- function(r_computeDistanceMatrix, r_computeCriterion, r_updateDistanceMatrix, design, num_passes = 10L, max_iter = 1e6L, temp = 0, decay = 0.95, no_update_iter_max = 400L, method = "deterministic") {
-    .Call(`_SFDesign_customLHDOptimizer_cpp`, r_computeDistanceMatrix, r_computeCriterion, r_updateDistanceMatrix, design, num_passes, max_iter, temp, decay, no_update_iter_max, method)
+maxproLHDOptimizer_cpp <- function(design, s = 2, num_passes = 10L, max_iter = 1e6L, temp = 0, decay = 0.95, no_update_iter_max = 400L, method = "deterministic") {
+    .Call(`_SFDesign_maxproLHDOptimizer_cpp`, design, s, num_passes, max_iter, temp, decay, no_update_iter_max, method)
+}
+
+uniformLHDOptimizer_cpp <- function(design, num_passes = 10L, max_iter = 1e6L, temp = 0, decay = 0.95, no_update_iter_max = 400L, method = "deterministic") {
+    .Call(`_SFDesign_uniformLHDOptimizer_cpp`, design, num_passes, max_iter, temp, decay, no_update_iter_max, method)
 }
 

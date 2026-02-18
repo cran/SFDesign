@@ -115,6 +115,7 @@ public:
     assignClusters();
     double obj0 = accu(pow(distances, alpha)) / N;
     double obj = obj0;
+    std::vector<double> obj_hist;
     int i;
     for (i = 0; i < Lloyd_iter_max; i++) {
       int k = centers.n_rows;
@@ -133,12 +134,16 @@ public:
       obj = accu(pow(distances, alpha)) / N;
       if ((obj0 - obj) > 0 && (obj0 - obj) / obj0 < Lloyd_tol) break;
       obj0 = obj;
+      obj_hist.push_back(obj0);
     }
+
+    Rcpp::NumericVector crit_hist_R(obj_hist.begin(), obj_hist.end());
     return List::create(
       Named("design") = centers,
       Named("cluster") = cluster_assign,
       Named("cluster_error") = obj,
-      Named("total_iter") = i
+      Named("total_iter") = i,
+      Named("crit_hist") = crit_hist_R
     );
   }
 };

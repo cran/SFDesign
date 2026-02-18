@@ -158,6 +158,7 @@ customLHD = function(compute.distance.matrix,
                                      temp, decay, no.update.iter.max,
                                      "sa")
     crit_hist = result$crit_hist
+    total_iter = result$total_iter
     result = customLHDOptimizer_cpp(compute.distance.matrix,
                                      compute.criterion,
                                      update.distance.matrix,
@@ -165,6 +166,7 @@ customLHD = function(compute.distance.matrix,
                                      temp, decay, no.update.iter.max,
                                      "deterministic")
     result$crit_hist = c(crit_hist, result$crit_hist)
+    result$total_iter = c(total_iter, result$total_iter)
   }
   return (result)
 }

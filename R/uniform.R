@@ -62,6 +62,12 @@ uniform.crit = function(design){
 #' @examples
 #' n = 20
 #' p = 3
+#' # optimize by SA
+#' D = uniformLHD(n, p, method='sa')
+#' # optimize by deterministic swapping
+#' D = uniformLHD(n, p, method='deterministic')
+#' # generate an optimized LHD for wrap-around discrepancy which goes
+#' # through the above two optimization stages.
 #' D = uniformLHD(n, p)
 #'
 uniformLHD = function(n, p, design = NULL,
@@ -198,6 +204,7 @@ uniform.optim = function(D.ini, iteration = 10){
 #' levels = c(3, 4, 6, 2, 3)
 #' t = 1
 #' D = uniform.discrete(t, p, levels)
+#'
 uniform.discrete = function(t, p, levels, design=NULL,
                          max.sa.iter = 1e6, temp = 0, decay = 0.95, no.update.iter.max = 400,
                          num.passes = 10, max.det.iter = 1e6,

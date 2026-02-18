@@ -27,9 +27,19 @@ This function augments a design by adding new design points one-at-a-time that m
 \code{maximin.augment} augments a design by adding new design points that minimize the reciprocal distance criterion (see \code{\link{maximin.crit}}) greedily. In each iteration, the new design points is selected as the one from the candidate points that has the smallest sum of reciprocal distance to the existing design, that is, \eqn{\bm x_{k+1} = \arg\min_{\bm x} \sum_{i=1}^k \frac{1}{\|\bm x - \bm x_i\|^r}}.
 }
 \examples{
+# Example 1
 n.ini = 10
 n = 20
 p = 3
 D.ini = maximinLHD(n.ini, p)$design
 D = maximin.augment(n, p, D.ini)
+
+# Example 2: augment from given candidates
+n.ini = 10
+n = 10
+p = 5
+D.ini = maximinLHD(n.ini, p)$design
+candidates = matrix(runif(1000), ncol=p)
+D = maximin.augment(n, p, D.ini, candidates)
+
 }

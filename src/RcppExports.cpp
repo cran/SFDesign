@@ -41,6 +41,26 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// customLHDOptimizer_cpp
+List customLHDOptimizer_cpp(Rcpp::Function r_computeDistanceMatrix, Rcpp::Function r_computeCriterion, Rcpp::Function r_updateDistanceMatrix, arma::mat design, int num_passes, int max_iter, double temp, double decay, int no_update_iter_max, std::string method);
+RcppExport SEXP _SFDesign_customLHDOptimizer_cpp(SEXP r_computeDistanceMatrixSEXP, SEXP r_computeCriterionSEXP, SEXP r_updateDistanceMatrixSEXP, SEXP designSEXP, SEXP num_passesSEXP, SEXP max_iterSEXP, SEXP tempSEXP, SEXP decaySEXP, SEXP no_update_iter_maxSEXP, SEXP methodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::Function >::type r_computeDistanceMatrix(r_computeDistanceMatrixSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Function >::type r_computeCriterion(r_computeCriterionSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Function >::type r_updateDistanceMatrix(r_updateDistanceMatrixSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type design(designSEXP);
+    Rcpp::traits::input_parameter< int >::type num_passes(num_passesSEXP);
+    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< double >::type temp(tempSEXP);
+    Rcpp::traits::input_parameter< double >::type decay(decaySEXP);
+    Rcpp::traits::input_parameter< int >::type no_update_iter_max(no_update_iter_maxSEXP);
+    Rcpp::traits::input_parameter< std::string >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(customLHDOptimizer_cpp(r_computeDistanceMatrix, r_computeCriterion, r_updateDistanceMatrix, design, num_passes, max_iter, temp, decay, no_update_iter_max, method));
+    return rcpp_result_gen;
+END_RCPP
+}
 // computeDistanceMatrixMaximin
 arma::vec computeDistanceMatrixMaximin(const arma::mat& A);
 RcppExport SEXP _SFDesign_computeDistanceMatrixMaximin(SEXP ASEXP) {
@@ -49,30 +69,6 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
     rcpp_result_gen = Rcpp::wrap(computeDistanceMatrixMaximin(A));
-    return rcpp_result_gen;
-END_RCPP
-}
-// computeDistanceMatrixMaxPro
-arma::vec computeDistanceMatrixMaxPro(const arma::mat& A, int s, double delta);
-RcppExport SEXP _SFDesign_computeDistanceMatrixMaxPro(SEXP ASEXP, SEXP sSEXP, SEXP deltaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
-    Rcpp::traits::input_parameter< int >::type s(sSEXP);
-    Rcpp::traits::input_parameter< double >::type delta(deltaSEXP);
-    rcpp_result_gen = Rcpp::wrap(computeDistanceMatrixMaxPro(A, s, delta));
-    return rcpp_result_gen;
-END_RCPP
-}
-// computeDistanceMatrixUniform
-arma::vec computeDistanceMatrixUniform(const arma::mat& A);
-RcppExport SEXP _SFDesign_computeDistanceMatrixUniform(SEXP ASEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
-    rcpp_result_gen = Rcpp::wrap(computeDistanceMatrixUniform(A));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -99,21 +95,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// maximinLHDOptimizer_cpp
-List maximinLHDOptimizer_cpp(arma::mat design, int power, int num_passes, int max_iter, double temp, double decay, int no_update_iter_max, std::string method);
-RcppExport SEXP _SFDesign_maximinLHDOptimizer_cpp(SEXP designSEXP, SEXP powerSEXP, SEXP num_passesSEXP, SEXP max_iterSEXP, SEXP tempSEXP, SEXP decaySEXP, SEXP no_update_iter_maxSEXP, SEXP methodSEXP) {
+// computeDistanceMatrixMaxPro
+arma::vec computeDistanceMatrixMaxPro(const arma::mat& A, int s, double delta);
+RcppExport SEXP _SFDesign_computeDistanceMatrixMaxPro(SEXP ASEXP, SEXP sSEXP, SEXP deltaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type design(designSEXP);
-    Rcpp::traits::input_parameter< int >::type power(powerSEXP);
-    Rcpp::traits::input_parameter< int >::type num_passes(num_passesSEXP);
-    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
-    Rcpp::traits::input_parameter< double >::type temp(tempSEXP);
-    Rcpp::traits::input_parameter< double >::type decay(decaySEXP);
-    Rcpp::traits::input_parameter< int >::type no_update_iter_max(no_update_iter_maxSEXP);
-    Rcpp::traits::input_parameter< std::string >::type method(methodSEXP);
-    rcpp_result_gen = Rcpp::wrap(maximinLHDOptimizer_cpp(design, power, num_passes, max_iter, temp, decay, no_update_iter_max, method));
+    Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
+    Rcpp::traits::input_parameter< int >::type s(sSEXP);
+    Rcpp::traits::input_parameter< double >::type delta(deltaSEXP);
+    rcpp_result_gen = Rcpp::wrap(computeDistanceMatrixMaxPro(A, s, delta));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -143,21 +134,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// maxproLHDOptimizer_cpp
-List maxproLHDOptimizer_cpp(arma::mat design, double s, int num_passes, int max_iter, double temp, double decay, int no_update_iter_max, std::string method);
-RcppExport SEXP _SFDesign_maxproLHDOptimizer_cpp(SEXP designSEXP, SEXP sSEXP, SEXP num_passesSEXP, SEXP max_iterSEXP, SEXP tempSEXP, SEXP decaySEXP, SEXP no_update_iter_maxSEXP, SEXP methodSEXP) {
+// computeDistanceMatrixUniform
+arma::vec computeDistanceMatrixUniform(const arma::mat& A);
+RcppExport SEXP _SFDesign_computeDistanceMatrixUniform(SEXP ASEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type design(designSEXP);
-    Rcpp::traits::input_parameter< double >::type s(sSEXP);
-    Rcpp::traits::input_parameter< int >::type num_passes(num_passesSEXP);
-    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
-    Rcpp::traits::input_parameter< double >::type temp(tempSEXP);
-    Rcpp::traits::input_parameter< double >::type decay(decaySEXP);
-    Rcpp::traits::input_parameter< int >::type no_update_iter_max(no_update_iter_maxSEXP);
-    Rcpp::traits::input_parameter< std::string >::type method(methodSEXP);
-    rcpp_result_gen = Rcpp::wrap(maxproLHDOptimizer_cpp(design, s, num_passes, max_iter, temp, decay, no_update_iter_max, method));
+    Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
+    rcpp_result_gen = Rcpp::wrap(computeDistanceMatrixUniform(A));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -184,13 +168,49 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// maximinLHDOptimizer_cpp
+List maximinLHDOptimizer_cpp(NumericMatrix design, int power, int num_passes, int max_iter, double temp, double decay, int no_update_iter_max, std::string method);
+RcppExport SEXP _SFDesign_maximinLHDOptimizer_cpp(SEXP designSEXP, SEXP powerSEXP, SEXP num_passesSEXP, SEXP max_iterSEXP, SEXP tempSEXP, SEXP decaySEXP, SEXP no_update_iter_maxSEXP, SEXP methodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type design(designSEXP);
+    Rcpp::traits::input_parameter< int >::type power(powerSEXP);
+    Rcpp::traits::input_parameter< int >::type num_passes(num_passesSEXP);
+    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< double >::type temp(tempSEXP);
+    Rcpp::traits::input_parameter< double >::type decay(decaySEXP);
+    Rcpp::traits::input_parameter< int >::type no_update_iter_max(no_update_iter_maxSEXP);
+    Rcpp::traits::input_parameter< std::string >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(maximinLHDOptimizer_cpp(design, power, num_passes, max_iter, temp, decay, no_update_iter_max, method));
+    return rcpp_result_gen;
+END_RCPP
+}
+// maxproLHDOptimizer_cpp
+List maxproLHDOptimizer_cpp(NumericMatrix design, double s, int num_passes, int max_iter, double temp, double decay, int no_update_iter_max, std::string method);
+RcppExport SEXP _SFDesign_maxproLHDOptimizer_cpp(SEXP designSEXP, SEXP sSEXP, SEXP num_passesSEXP, SEXP max_iterSEXP, SEXP tempSEXP, SEXP decaySEXP, SEXP no_update_iter_maxSEXP, SEXP methodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type design(designSEXP);
+    Rcpp::traits::input_parameter< double >::type s(sSEXP);
+    Rcpp::traits::input_parameter< int >::type num_passes(num_passesSEXP);
+    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< double >::type temp(tempSEXP);
+    Rcpp::traits::input_parameter< double >::type decay(decaySEXP);
+    Rcpp::traits::input_parameter< int >::type no_update_iter_max(no_update_iter_maxSEXP);
+    Rcpp::traits::input_parameter< std::string >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(maxproLHDOptimizer_cpp(design, s, num_passes, max_iter, temp, decay, no_update_iter_max, method));
+    return rcpp_result_gen;
+END_RCPP
+}
 // uniformLHDOptimizer_cpp
-List uniformLHDOptimizer_cpp(arma::mat design, int num_passes, int max_iter, double temp, double decay, int no_update_iter_max, std::string method);
+List uniformLHDOptimizer_cpp(NumericMatrix design, int num_passes, int max_iter, double temp, double decay, int no_update_iter_max, std::string method);
 RcppExport SEXP _SFDesign_uniformLHDOptimizer_cpp(SEXP designSEXP, SEXP num_passesSEXP, SEXP max_iterSEXP, SEXP tempSEXP, SEXP decaySEXP, SEXP no_update_iter_maxSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type design(designSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type design(designSEXP);
     Rcpp::traits::input_parameter< int >::type num_passes(num_passesSEXP);
     Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
     Rcpp::traits::input_parameter< double >::type temp(tempSEXP);
@@ -201,43 +221,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// customLHDOptimizer_cpp
-List customLHDOptimizer_cpp(Rcpp::Function r_computeDistanceMatrix, Rcpp::Function r_computeCriterion, Rcpp::Function r_updateDistanceMatrix, arma::mat design, int num_passes, int max_iter, double temp, double decay, int no_update_iter_max, std::string method);
-RcppExport SEXP _SFDesign_customLHDOptimizer_cpp(SEXP r_computeDistanceMatrixSEXP, SEXP r_computeCriterionSEXP, SEXP r_updateDistanceMatrixSEXP, SEXP designSEXP, SEXP num_passesSEXP, SEXP max_iterSEXP, SEXP tempSEXP, SEXP decaySEXP, SEXP no_update_iter_maxSEXP, SEXP methodSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::Function >::type r_computeDistanceMatrix(r_computeDistanceMatrixSEXP);
-    Rcpp::traits::input_parameter< Rcpp::Function >::type r_computeCriterion(r_computeCriterionSEXP);
-    Rcpp::traits::input_parameter< Rcpp::Function >::type r_updateDistanceMatrix(r_updateDistanceMatrixSEXP);
-    Rcpp::traits::input_parameter< arma::mat >::type design(designSEXP);
-    Rcpp::traits::input_parameter< int >::type num_passes(num_passesSEXP);
-    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
-    Rcpp::traits::input_parameter< double >::type temp(tempSEXP);
-    Rcpp::traits::input_parameter< double >::type decay(decaySEXP);
-    Rcpp::traits::input_parameter< int >::type no_update_iter_max(no_update_iter_maxSEXP);
-    Rcpp::traits::input_parameter< std::string >::type method(methodSEXP);
-    rcpp_result_gen = Rcpp::wrap(customLHDOptimizer_cpp(r_computeDistanceMatrix, r_computeCriterion, r_updateDistanceMatrix, design, num_passes, max_iter, temp, decay, no_update_iter_max, method));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_SFDesign_clusterError", (DL_FUNC) &_SFDesign_clusterError, 3},
     {"_SFDesign_cluster_based_design_cpp", (DL_FUNC) &_SFDesign_cluster_based_design_cpp, 7},
+    {"_SFDesign_customLHDOptimizer_cpp", (DL_FUNC) &_SFDesign_customLHDOptimizer_cpp, 10},
     {"_SFDesign_computeDistanceMatrixMaximin", (DL_FUNC) &_SFDesign_computeDistanceMatrixMaximin, 1},
-    {"_SFDesign_computeDistanceMatrixMaxPro", (DL_FUNC) &_SFDesign_computeDistanceMatrixMaxPro, 3},
-    {"_SFDesign_computeDistanceMatrixUniform", (DL_FUNC) &_SFDesign_computeDistanceMatrixUniform, 1},
     {"_SFDesign_maximinObj", (DL_FUNC) &_SFDesign_maximinObj, 2},
     {"_SFDesign_maximinCrit", (DL_FUNC) &_SFDesign_maximinCrit, 1},
-    {"_SFDesign_maximinLHDOptimizer_cpp", (DL_FUNC) &_SFDesign_maximinLHDOptimizer_cpp, 8},
+    {"_SFDesign_computeDistanceMatrixMaxPro", (DL_FUNC) &_SFDesign_computeDistanceMatrixMaxPro, 3},
     {"_SFDesign_maxproObj", (DL_FUNC) &_SFDesign_maxproObj, 3},
     {"_SFDesign_maxproCrit", (DL_FUNC) &_SFDesign_maxproCrit, 3},
-    {"_SFDesign_maxproLHDOptimizer_cpp", (DL_FUNC) &_SFDesign_maxproLHDOptimizer_cpp, 8},
+    {"_SFDesign_computeDistanceMatrixUniform", (DL_FUNC) &_SFDesign_computeDistanceMatrixUniform, 1},
     {"_SFDesign_uniformObj", (DL_FUNC) &_SFDesign_uniformObj, 1},
     {"_SFDesign_uniformCrit", (DL_FUNC) &_SFDesign_uniformCrit, 2},
+    {"_SFDesign_maximinLHDOptimizer_cpp", (DL_FUNC) &_SFDesign_maximinLHDOptimizer_cpp, 8},
+    {"_SFDesign_maxproLHDOptimizer_cpp", (DL_FUNC) &_SFDesign_maxproLHDOptimizer_cpp, 8},
     {"_SFDesign_uniformLHDOptimizer_cpp", (DL_FUNC) &_SFDesign_uniformLHDOptimizer_cpp, 7},
-    {"_SFDesign_customLHDOptimizer_cpp", (DL_FUNC) &_SFDesign_customLHDOptimizer_cpp, 10},
     {NULL, NULL, 0}
 };
 

@@ -31,6 +31,7 @@ p = 3
 D = maximinLHD(n, p)$design
 D = maximin.optim(D, sa=FALSE)$design
 # D = maximin.optim(D, sa=TRUE)$design # Let sa=TRUE only when the n and p is not large.
+
 }
 \references{
 Liu, D. C., & Nocedal, J. (1989). On the limited memory BFGS method for large scale optimization. Mathematical programming, 45(1), 503-528.

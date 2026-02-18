@@ -23,9 +23,18 @@ This function sequentially removes design points one-at-a-time from a design whi
 \code{maxpro.remove} sequentially removes design points from a design while maintaining low maximum projection criterion (see \code{\link{maxpro.crit}}) as possible. The maximum projection criterion is modified to include a small delta term: \deqn{\phi_{\text{maxpro}}(\bm{D}_n) = \left\{\frac{1}{{n\choose 2}}\sum_{i=1}^{n-1}\sum_{j=i+1}^{n}\frac{1}{\prod_{l=1}^p(x_{il}-x_{jl})^2 +\delta}\right\}^{1/p}.} The index of the point to remove is \eqn{k^* =\arg\min_k \sum_{i \neq k}\frac{1}{\prod_{l=1}^p(x_{il}-x_{kl})^2 +\delta}}.
 }
 \examples{
+# Example 1
 n = 20
 p = 3
 n.remove =  5
 D = maxproLHD(n, p)$design
 D = maxpro.remove(D, n.remove)
+
+# Example 2 : generate maxpro design from candidates
+N = 500
+n = 20
+p = 2
+candidates = matrix(runif(N*2), ncol=2)
+D = maxpro.remove(candidates, N-n)
+
 }

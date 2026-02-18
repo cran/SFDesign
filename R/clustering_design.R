@@ -58,15 +58,24 @@ cluster.error = function(design, X=NULL, alpha=1){
 #' \item{design}{final design points.}
 #' \item{cluster}{cluster assignment for each cluster points.}
 #' \item{cluster.error}{final cluster error.}
+#' \item{total.iter}{total number of iterations used in the Lloyd algorithm.}
+#' \item{crit.hist}{history of clustering error values at each iteration.}
 #'
 #' @references
 #' Mak, S. and Joseph, V. R. (2018), “Minimax and minimax projection designs using clustering,” Journal of Computational and Graphical Statistics, 27, 166–178.
 #'
 #' @examples
-#' n = 20
+#' # Example 1
+#' n = 10
 #' p = 3
 #' X = spacefillr::generate_sobol_set(1e5*p, p)
 #' D = clustering.design(n, p, X)
+#'
+#' # Example 2: multi-start
+#' n = 10
+#' p = 3
+#' X = spacefillr::generate_sobol_set(1e5*p, p)
+#' D = clustering.design(n, p, X, multi.start=2)
 #'
 clustering.design = function(n, p, X=NULL, D.ini=NULL, multi.start=1, alpha=1.0,
                        Lloyd.iter.max=100, cen.iter.max=10,
@@ -84,9 +93,10 @@ clustering.design = function(n, p, X=NULL, D.ini=NULL, multi.start=1, alpha=1.0,
                                       cen_iter_max=cen.iter.max, cen_tol=cen.tol)
 
     return (list(design=result$design, cluster=result$cluster,
-                 cluster.error=result$cluster_error, total.iter=result$total_iter))
+                 cluster.error=result$cluster_error, total.iter=result$total_iter,
+                 crit.hist=result$crit_hist))
   }else{
-    obj_best = .Machine$double.xmax
+    obj.best = .Machine$double.xmax
     random_seed = sample(1e5, multi.start)
     for (i in 1:multi.start){
       D.ini = pmax(pmin(jitter(spacefillr::generate_sobol_set(n, p, random_seed[i])), 1), 0)
@@ -95,14 +105,16 @@ clustering.design = function(n, p, X=NULL, D.ini=NULL, multi.start=1, alpha=1.0,
                                         cen_iter_max=cen.iter.max, cen_tol=cen.tol)
 
       obj = result$cluster_error
-      if (obj < obj_best){
-        obj_best = obj
+      if (obj < obj.best){
+        obj.best = obj
         design = result$design
         cluster = result$cluster
         total.iter = result$total_iter
+        crit.hist = result$crit_hist
       }
     }
     return (list(design=design, cluster=cluster,
-                 cluster.error=obj, total.iter=total.iter))
+                 cluster.error=obj.best, total.iter=total.iter,
+                 crit.hist=crit.hist))
   }
 }
